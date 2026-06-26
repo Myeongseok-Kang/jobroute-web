@@ -1,0 +1,425 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f7f8fc;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(at 12% -5%, rgba(99, 102, 241, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.05) 0px, transparent 42%);
+  background-attachment: fixed;
+  color: #0f172a;
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.011em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.025em;
+}
+
+/* Subtle aurora background for hero sections */
+.bg-aurora {
+  background-color: #f7f8fc;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+    radial-gradient(at 98% 10%, rgba(168, 85, 247, 0.1) 0px, transparent 45%),
+    radial-gradient(at 50% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #2563eb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+/* Hide scrollbar but keep scroll (mobile tab strips) */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe-area helpers for mobile (notch / home indicator) */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.bottom-safe {
+  bottom: calc(env(safe-area-inset-bottom) + 1rem);
+}
+
+/* Bottom-sheet slide-up (mobile modals) */
+@keyframes sheet-up {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-sheet-up {
+  animation: sheet-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (max-width: 640px) {
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Hairline gradient divider (decorative accent rules) */
+.rule-gradient {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    #6366f1 0%,
+    #a855f7 45%,
+    transparent 100%
+  );
+  border-radius: 999px;
+}
+
+/* Soft gradient border ring on hover surfaces */
+.ring-grad {
+  position: relative;
+}
+.ring-grad::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.35));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.ring-grad:hover::before {
+  opacity: 1;
+}
+
+/* Loading shimmer skeleton */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Thin custom range slider used in matching forms */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(79, 70, 229, 0.4);
+  border: 3px solid #fff;
+  transition: transform 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Prose tweaks for generated text */
+.prose-content {
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: keep-all;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.18);
+  color: #1e1b4b;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(18px);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Animated gradient text */
+.text-gradient-animate {
+  background: linear-gradient(120deg, #4f46e5, #7c3aed, #2563eb, #4f46e5);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 6s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================ Dark mode ============================ */
+html.dark {
+  --bg: #0b1120;
+  color-scheme: dark;
+}
+html.dark body {
+  background-color: #0b1120;
+  background-image:
+    radial-gradient(at 12% -5%, rgba(99, 102, 241, 0.13) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 42%);
+  color: #e2e8f0;
+}
+html.dark ::selection {
+  background: rgba(129, 140, 248, 0.35);
+  color: #fff;
+}
+html.dark .glass {
+  background: rgba(15, 23, 42, 0.72);
+}
+html.dark .skeleton {
+  background-color: #1e293b;
+}
+html.dark .skeleton::after {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  background-clip: content-box;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+  background-clip: content-box;
+}
+
+html.dark .bg-aurora {
+  background-color: #0b1120;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.22) 0px, transparent 50%),
+    radial-gradient(at 98% 10%, rgba(168, 85, 247, 0.18) 0px, transparent 45%),
+    radial-gradient(at 50% 100%, rgba(56, 189, 248, 0.12) 0px, transparent 50%);
+}
+html.dark .bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+html.dark .bg-white {
+  background-color: #141d31;
+}
+html.dark .bg-white\/95 {
+  background-color: rgba(20, 29, 49, 0.95);
+}
+html.dark .bg-white\/90 {
+  background-color: rgba(20, 29, 49, 0.85);
+}
+html.dark .bg-white\/80 {
+  background-color: rgba(20, 29, 49, 0.8);
+}
+html.dark .bg-white\/70 {
+  background-color: rgba(20, 29, 49, 0.72);
+}
+html.dark .bg-white\/60 {
+  background-color: rgba(20, 29, 49, 0.6);
+}
+html.dark .bg-white\/50 {
+  background-color: rgba(20, 29, 49, 0.5);
+}
+
+html.dark .bg-ink-50,
+html.dark .bg-ink-50\/50,
+html.dark .bg-ink-50\/60,
+html.dark .bg-ink-100 {
+  background-color: #1b2438;
+}
+
+html.dark .border-ink-100,
+html.dark .border-ink-200,
+html.dark .border-ink-200\/40,
+html.dark .border-ink-200\/60,
+html.dark .border-ink-200\/70 {
+  border-color: #243049;
+}
+
+html.dark .text-ink-900 {
+  color: #f1f5f9;
+}
+html.dark .text-ink-800 {
+  color: #e2e8f0;
+}
+html.dark .text-ink-700 {
+  color: #cbd5e1;
+}
+html.dark .text-ink-600 {
+  color: #9aa7b8;
+}
+html.dark .text-ink-500 {
+  color: #8593a5;
+}
+html.dark .text-ink-400 {
+  color: #64748b;
+}
+html.dark .text-ink-300 {
+  color: #475569;
+}
+
+html.dark .bg-brand-50,
+html.dark .bg-brand-50\/50,
+html.dark .bg-brand-50\/60 {
+  background-color: rgba(129, 140, 248, 0.15);
+}
+html.dark .text-brand-700,
+html.dark .text-brand-600 {
+  color: #a5b4fc;
+}
+html.dark .text-brand-500 {
+  color: #818cf8;
+}
+html.dark .border-brand-100,
+html.dark .border-brand-200 {
+  border-color: rgba(129, 140, 248, 0.28);
+}
+
+html.dark .bg-blue-50 {
+  background-color: rgba(59, 130, 246, 0.14);
+}
+html.dark .border-blue-100,
+html.dark .border-emerald-100,
+html.dark .border-orange-100 {
+  border-color: #243049;
+}
+html.dark .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.14);
+}
+html.dark .bg-amber-50,
+html.dark .bg-amber-50\/50,
+html.dark .bg-amber-50\/60 {
+  background-color: rgba(245, 158, 11, 0.14);
+}
+html.dark .bg-red-50 {
+  background-color: rgba(239, 68, 68, 0.14);
+}
+html.dark .bg-orange-50 {
+  background-color: rgba(249, 115, 22, 0.14);
+}
+
+html.dark .hover\:bg-ink-50:hover,
+html.dark .hover\:bg-ink-100:hover {
+  background-color: #243049;
+}
+html.dark .hover\:bg-white:hover {
+  background-color: #1b2438;
+}
