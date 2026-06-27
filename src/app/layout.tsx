@@ -8,6 +8,7 @@ import { CommandPalette } from "@/components/CommandPalette";
 import { ScrollTools } from "@/components/ScrollTools";
 import { MobileTabBar } from "@/components/MobileTabBar";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://jobroute.kr";
 const DESCRIPTION =
@@ -80,6 +81,7 @@ export default function RootLayout({
           </ToastProvider>
         </AuthProvider>
         <Analytics />
+        <GoogleAnalytics gaId="G-JYGXNS7VYE" />
       </body>
     </html>
   );
