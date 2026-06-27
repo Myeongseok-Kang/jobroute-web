@@ -34,6 +34,34 @@ import { cn } from "@/lib/utils";
 
 type TabKey = "text" | "conditions" | "resume";
 
+const TEXT_EXAMPLES = [
+  {
+    label: "신입 백엔드",
+    value:
+      "신입 백엔드 개발자입니다. Java와 Spring을 공부했고, 서울에서 첫 직장을 찾고 있어요.",
+  },
+  {
+    label: "3년차 프론트엔드",
+    value:
+      "3년차 프론트엔드 개발자입니다. React와 TypeScript를 주로 썼고, 핀테크나 커머스 도메인에 관심이 있어요.",
+  },
+  {
+    label: "데이터·ML 신입",
+    value:
+      "Python으로 데이터 분석과 머신러닝을 공부한 신입입니다. 데이터 관련 직무로 취업하고 싶어요.",
+  },
+  {
+    label: "DevOps·인프라",
+    value:
+      "AWS와 Docker, Kubernetes 경험이 있는 4년차 인프라 엔지니어입니다. DevOps 포지션을 찾고 있어요.",
+  },
+  {
+    label: "비전공 전향",
+    value:
+      "비전공이지만 부트캠프를 수료하고 웹 개발자로 취업을 준비 중입니다. 신입 가능한 포지션을 찾고 있어요.",
+  },
+];
+
 const REGION_OPTIONS = [
   { value: "", label: "전체 지역" },
   ...REGIONS.map((r) => ({ value: r, label: r })),
@@ -199,6 +227,23 @@ export default function MatchingPage() {
                 }
                 hint="경력, 기술 스택, 희망 도메인 등을 자유롭게 적을수록 정확해져요."
               />
+              <div>
+                <p className="mb-2 text-xs font-semibold text-ink-500">
+                  예시로 빠르게 시작해보세요
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {TEXT_EXAMPLES.map((ex) => (
+                    <button
+                      key={ex.label}
+                      type="button"
+                      onClick={() => setText(ex.value)}
+                      className="rounded-full border border-ink-200 bg-white px-3 py-1.5 text-xs font-medium text-ink-600 transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700 active:scale-95"
+                    >
+                      {ex.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
