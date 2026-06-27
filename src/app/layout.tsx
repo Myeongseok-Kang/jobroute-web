@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { CommandPalette } from "@/components/CommandPalette";
 import { ScrollTools } from "@/components/ScrollTools";
 import { MobileTabBar } from "@/components/MobileTabBar";
+import { Analytics } from "@vercel/analytics/next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://jobroute.kr";
 const DESCRIPTION =
@@ -78,6 +79,7 @@ export default function RootLayout({
             <MobileTabBar />
           </ToastProvider>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
