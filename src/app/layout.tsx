@@ -8,7 +8,7 @@ import { CommandPalette } from "@/components/CommandPalette";
 import { ScrollTools } from "@/components/ScrollTools";
 import { MobileTabBar } from "@/components/MobileTabBar";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://jobroute.kr";
 const DESCRIPTION =
   "흩어진 IT 채용 공고를 한곳에서. AI 하이브리드 매칭으로 당신에게 꼭 맞는 자리를 찾고, 자소서와 면접까지 준비하세요.";
 
