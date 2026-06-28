@@ -55,9 +55,21 @@ const FEATURES = [
 ];
 
 const HERO_EXAMPLES = [
-  "3년차 백엔드, NestJS·AWS, 핀테크 관심",
-  "신입 프론트엔드, React·TypeScript",
-  "데이터 분석 신입, Python·SQL",
+  {
+    label: "백엔드 3년차",
+    value:
+      "3년차 백엔드 개발자입니다. NestJS와 PostgreSQL을 주로 썼고, 핀테크나 커머스 도메인의 백엔드 포지션을 찾고 있어요.",
+  },
+  {
+    label: "신입 프론트엔드",
+    value:
+      "신입 프론트엔드 개발자입니다. React와 TypeScript를 공부했고, 서울에서 첫 직장을 찾고 있어요.",
+  },
+  {
+    label: "데이터 분석 신입",
+    value:
+      "Python과 SQL로 데이터 분석을 공부한 신입입니다. 데이터 관련 직무로 취업하고 싶어요.",
+  },
 ];
 
 export default function HomePage() {
@@ -99,8 +111,8 @@ export default function HomePage() {
             <br />
             <span className="text-gradient-animate">AI가 당신의 길</span>을 찾아드려요
           </h1>
-          <p className="mx-auto mt-5 max-w-xl animate-fade-in break-keep text-base text-ink-600 sm:text-lg">
-            내 경력과 기술만 적으면, AI가 전국 IT 공고에서 딱 맞는 자리를 찾아드려요.
+          <p className="mx-auto mt-5 max-w-xl animate-fade-in text-balance break-keep text-base text-ink-600 sm:text-lg">
+            경력과 기술만 적으면 AI가 딱 맞는 IT 공고를 찾아드려요.
           </p>
 
           <form
@@ -135,12 +147,12 @@ export default function HomePage() {
               <div className="flex flex-wrap justify-center gap-2">
                 {HERO_EXAMPLES.map((ex) => (
                   <button
-                    key={ex}
+                    key={ex.label}
                     type="button"
-                    onClick={() => setQuery(ex)}
+                    onClick={() => setQuery(ex.value)}
                     className="break-keep rounded-full border border-ink-200 bg-white/70 px-3 py-1.5 text-xs font-medium text-ink-600 backdrop-blur transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700 active:scale-95"
                   >
-                    {ex}
+                    {ex.label}
                   </button>
                 ))}
               </div>

@@ -9,10 +9,6 @@ export function Footer() {
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
           <div className="max-w-xs">
             <Logo />
-            <p className="mt-3 text-sm leading-relaxed text-ink-500">
-              AI 기반 채용 매칭 플랫폼. 흩어진 공고를 한곳에서 모아 당신에게 딱
-              맞는 자리를 찾아드려요.
-            </p>
           </div>
           <div className="grid grid-cols-2 gap-12 sm:grid-cols-3">
             <FooterCol
