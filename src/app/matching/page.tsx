@@ -29,7 +29,6 @@ import {
   CAREER_OPTIONS,
   EMPLOYMENT_OPTIONS,
   SKILL_SUGGESTIONS,
-  SKILL_SUGGESTIONS,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
