@@ -20,6 +20,26 @@ import { Modal, ConfirmModal } from "@/components/ui/Modal";
 import { Card, EmptyState, Skeleton } from "@/components/ui/Misc";
 import { formatRelativeDate } from "@/lib/utils";
 
+const SAMPLE_RESUME = {
+  title: "백엔드 개발자 이력서 (예시)",
+  content: `3년차 백엔드 개발자입니다.
+
+[기술 스택]
+- 언어: TypeScript, Java
+- 프레임워크: NestJS, Spring Boot
+- 데이터베이스: PostgreSQL, Redis
+- 인프라: AWS(EC2, RDS), Docker, GitHub Actions
+
+[주요 경험]
+- 핀테크 결제 시스템을 MSA로 설계/개발, 일 거래 100만 건 처리
+- Redis 캐시 도입으로 외부 API 비용 40% 절감
+- 대용량 트래픽 대비 부하 테스트 및 쿼리 최적화 (응답속도 P95 1.2s → 300ms)
+
+[희망 포지션]
+- 핀테크/커머스 도메인의 백엔드 엔지니어
+- 안정성과 비용 효율을 함께 고민하는 팀`,
+};
+
 export default function ResumePage() {
   return (
     <AuthGuard>
@@ -215,6 +235,23 @@ function ResumeManager() {
         }
       >
         <div className="space-y-4">
+          {!editing && (
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-brand-100 bg-brand-50/50 px-4 py-3">
+              <p className="text-sm text-ink-600">
+                처음이신가요? 예시 이력서로 빠르게 채워보세요
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setTitle(SAMPLE_RESUME.title);
+                  setContent(SAMPLE_RESUME.content);
+                }}
+                className="shrink-0 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-brand-700 active:scale-95"
+              >
+                예시로 채우기
+              </button>
+            </div>
+          )}
           <Input
             label="제목 (선택)"
             placeholder="예) 백엔드 개발자 이력서 v2"

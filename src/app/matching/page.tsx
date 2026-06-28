@@ -249,6 +249,19 @@ export default function MatchingPage() {
 
           {tab === "conditions" && (
             <div className="space-y-5">
+              <div className="flex items-center justify-between gap-3 rounded-xl border border-brand-100 bg-brand-50/50 px-4 py-3">
+                <p className="text-sm text-ink-600">예시 조건으로 채워보기</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setJobCategory("백엔드 개발");
+                    setSkills(["NestJS", "PostgreSQL", "AWS"]);
+                  }}
+                  className="shrink-0 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-brand-700 active:scale-95"
+                >
+                  예시 채우기
+                </button>
+              </div>
               <Select
                 label="직무"
                 value={jobCategory}

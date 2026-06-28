@@ -33,6 +33,14 @@ import { ResumeSelect } from "@/components/ResumeSelect";
 
 type TabKey = "draft" | "review";
 
+const SAMPLE_COVER_LETTER = `저는 사용자가 겪는 문제를 끝까지 파고들어 해결하는 백엔드 개발자입니다.
+
+이전 프로젝트에서 결제 시스템의 응답 지연 문제를 맡았습니다. 원인을 추적해보니 매 요청마다 외부 API를 중복 호출하는 구조였고, Redis 캐시를 도입해 호출을 40% 줄이고 평균 응답속도를 1.2초에서 0.3초로 개선했습니다.
+
+또한 외부 API 장애가 전체 서비스로 번지는 것을 막기 위해 서킷 브레이커를 적용하고, 핵심 로직에 단위 테스트를 작성해 안정성을 보장했습니다.
+
+입사 후에는 단순히 기능을 구현하는 것을 넘어, 비용과 안정성까지 함께 고민하는 백엔드 엔지니어로 기여하고 싶습니다.`;
+
 function CoverLetterInner() {
   const params = useSearchParams();
   const { isAuthed } = useAuth();
@@ -240,6 +248,13 @@ function CoverLetterInner() {
                   hint={`${content.length}자 · 10자 이상`}
                 />
               </div>
+              <button
+                type="button"
+                onClick={() => setContent(SAMPLE_COVER_LETTER)}
+                className="mt-2 text-xs font-semibold text-brand-600 transition hover:text-brand-700"
+              >
+                예시 자소서로 채우기
+              </button>
               <Button
                 fullWidth
                 size="lg"
