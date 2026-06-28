@@ -56,19 +56,29 @@ const FEATURES = [
 
 const HERO_EXAMPLES = [
   {
-    label: "백엔드 3년차",
+    label: "신입 백엔드",
     value:
-      "3년차 백엔드 개발자입니다. NestJS와 PostgreSQL을 주로 썼고, 핀테크나 커머스 도메인의 백엔드 포지션을 찾고 있어요.",
+      "신입 백엔드 개발자입니다. Java와 Spring을 공부했고, 서울에서 첫 직장을 찾고 있어요.",
   },
   {
-    label: "신입 프론트엔드",
+    label: "3년차 프론트엔드",
     value:
-      "신입 프론트엔드 개발자입니다. React와 TypeScript를 공부했고, 서울에서 첫 직장을 찾고 있어요.",
+      "3년차 프론트엔드 개발자입니다. React와 TypeScript를 주로 썼고, 핀테크나 커머스 도메인에 관심이 있어요.",
   },
   {
-    label: "데이터 분석 신입",
+    label: "데이터·ML 신입",
     value:
-      "Python과 SQL로 데이터 분석을 공부한 신입입니다. 데이터 관련 직무로 취업하고 싶어요.",
+      "Python으로 데이터 분석과 머신러닝을 공부한 신입입니다. 데이터 관련 직무로 취업하고 싶어요.",
+  },
+  {
+    label: "DevOps·인프라",
+    value:
+      "AWS와 Docker, Kubernetes 경험이 있는 4년차 인프라 엔지니어입니다. DevOps 포지션을 찾고 있어요.",
+  },
+  {
+    label: "비전공 전향",
+    value:
+      "비전공이지만 부트캠프를 수료하고 웹 개발자로 취업을 준비 중입니다. 신입 가능한 포지션을 찾고 있어요.",
   },
 ];
 
@@ -98,7 +108,7 @@ export default function HomePage() {
           className="pointer-events-none absolute -right-16 top-28 h-80 w-80 rounded-full bg-violet-400/20 blur-3xl animate-blob"
           style={{ animationDelay: "5s" }}
         />
-        <div className="relative mx-auto max-w-3xl px-4 pb-24 pt-16 text-center sm:px-6 sm:pt-24 lg:px-8">
+        <div className="relative mx-auto max-w-4xl px-4 pb-24 pt-16 text-center sm:px-6 sm:pt-24 lg:px-8">
           <div className="mb-6 inline-flex animate-fade-in items-center gap-2 rounded-full border border-brand-200 bg-gradient-to-r from-brand-50 to-violet-50 px-4 py-1.5 text-sm font-semibold text-brand-700 shadow-soft backdrop-blur">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-70" />
@@ -120,7 +130,7 @@ export default function HomePage() {
               e.preventDefault();
               startMatching();
             }}
-            className="mx-auto mt-8 max-w-2xl animate-fade-in text-left"
+            className="mx-auto mt-8 max-w-3xl animate-fade-in text-left"
           >
             <div className="rounded-2xl border border-ink-200/70 bg-white p-2 shadow-lift">
               <textarea
