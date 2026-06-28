@@ -154,7 +154,7 @@ export default function FeedbackPage() {
                 hint={`${content.trim().length}자 · 5자 이상`}
               />
               <Input
-                label="전화번호 (경품 받으려면 필수)"
+                label="전화번호 (선택)"
                 placeholder="010-0000-0000"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
