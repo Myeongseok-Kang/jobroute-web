@@ -97,6 +97,15 @@ export default function MatchingPage() {
   const [selectedResume, setSelectedResume] = useState("");
 
   useEffect(() => {
+    const prefill = sessionStorage.getItem("jobroute_prefill");
+    if (prefill) {
+      setText(prefill);
+      setTab("text");
+      sessionStorage.removeItem("jobroute_prefill");
+    }
+  }, []);
+
+  useEffect(() => {
     if (tab === "resume" && isAuthed) {
       setResumeLoading(true);
       resumeApi
