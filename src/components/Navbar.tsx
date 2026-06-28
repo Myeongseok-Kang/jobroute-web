@@ -29,7 +29,7 @@ const NAV_LINKS: {
   icon: typeof Briefcase;
   highlight?: boolean;
 }[] = [
-  { href: "/jobs", label: "공고 탐색", icon: Briefcase },
+  { href: "/jobs", label: "채용 공고", icon: Briefcase },
   { href: "/matching", label: "AI 매칭", icon: Sparkles },
   { href: "/resume", label: "이력서", icon: FileText },
   { href: "/cover-letter", label: "자소서", icon: PenLine },

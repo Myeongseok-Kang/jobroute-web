@@ -58,7 +58,6 @@ const HERO_EXAMPLES = [
   "3년차 백엔드, NestJS·AWS, 핀테크 관심",
   "신입 프론트엔드, React·TypeScript",
   "데이터 분석 신입, Python·SQL",
-  "DevOps 4년차, Docker·Kubernetes",
 ];
 
 export default function HomePage() {
@@ -95,15 +94,13 @@ export default function HomePage() {
             </span>
             AI 하이브리드 검색 기반 채용 매칭
           </div>
-          <h1 className="animate-fade-in text-[2.6rem] font-extrabold leading-[1.07] tracking-tight text-ink-900 sm:text-6xl">
+          <h1 className="animate-fade-in break-keep text-[2.6rem] font-extrabold leading-[1.12] tracking-tight text-ink-900 sm:text-6xl">
             흩어진 IT 채용 공고,
             <br />
-            <span className="text-gradient-animate">AI가 당신의 길</span>을
-            찾아드려요
+            <span className="text-gradient-animate">AI가 당신의 길</span>을 찾아드려요
           </h1>
-          <p className="mx-auto mt-5 max-w-xl animate-fade-in text-base text-ink-600 sm:text-lg">
-            내 경력과 기술만 적으면, AI가 전국 IT 공고에서 딱 맞는 자리를
-            찾아드려요.
+          <p className="mx-auto mt-5 max-w-xl animate-fade-in break-keep text-base text-ink-600 sm:text-lg">
+            내 경력과 기술만 적으면, AI가 전국 IT 공고에서 딱 맞는 자리를 찾아드려요.
           </p>
 
           <form
@@ -119,7 +116,7 @@ export default function HomePage() {
                 onChange={(e) => setQuery(e.target.value)}
                 rows={3}
                 placeholder="예) 3년차 백엔드 개발자입니다. NestJS와 PostgreSQL을 주로 썼고, 핀테크 백엔드 포지션을 찾고 있어요."
-                className="w-full resize-none rounded-xl bg-transparent px-4 py-3 text-sm leading-relaxed text-ink-900 placeholder:text-ink-400 focus:outline-none"
+                className="w-full resize-none break-keep rounded-xl bg-transparent px-4 py-3 text-sm leading-relaxed text-ink-900 placeholder:text-ink-400 focus:outline-none"
               />
               <div className="flex items-center justify-between gap-2 px-2 pb-1">
                 <span className="hidden text-xs text-ink-400 sm:block">
@@ -131,17 +128,22 @@ export default function HomePage() {
                 </Button>
               </div>
             </div>
-            <div className="mt-3 flex flex-wrap justify-center gap-2">
-              {HERO_EXAMPLES.map((ex) => (
-                <button
-                  key={ex}
-                  type="button"
-                  onClick={() => setQuery(ex)}
-                  className="rounded-full border border-ink-200 bg-white/70 px-3 py-1.5 text-xs font-medium text-ink-600 backdrop-blur transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700 active:scale-95"
-                >
-                  {ex}
-                </button>
-              ))}
+            <div className="mt-4 text-center">
+              <p className="mb-2 text-xs font-medium text-ink-400">
+                이렇게 적어보세요 (눌러서 채우기)
+              </p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {HERO_EXAMPLES.map((ex) => (
+                  <button
+                    key={ex}
+                    type="button"
+                    onClick={() => setQuery(ex)}
+                    className="break-keep rounded-full border border-ink-200 bg-white/70 px-3 py-1.5 text-xs font-medium text-ink-600 backdrop-blur transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700 active:scale-95"
+                  >
+                    {ex}
+                  </button>
+                ))}
+              </div>
             </div>
             <p className="mt-4 text-center text-xs text-ink-400">
               모든 기능 무료 · 구글/카카오 5초 가입
