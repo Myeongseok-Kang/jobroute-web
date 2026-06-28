@@ -91,7 +91,7 @@ export function Navbar() {
           >
             <Logo />
           </Link>
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => {
               const Icon = link.icon;
               const active = isActive(link.href);
@@ -100,7 +100,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all",
+                    "flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold transition-all",
                     link.highlight
                       ? "bg-gradient-to-r from-brand-500 to-violet-600 text-white shadow-btn hover:-translate-y-0.5 hover:shadow-lift"
                       : active
@@ -133,7 +133,7 @@ export function Navbar() {
           {loading ? (
             <div className="h-9 w-20 skeleton rounded-xl" />
           ) : isAuthed ? (
-            <div className="relative hidden md:block" ref={menuRef}>
+            <div className="relative hidden lg:block" ref={menuRef}>
               <button
                 onClick={() => setMenuOpen((v) => !v)}
                 className="flex items-center gap-2 rounded-xl py-1.5 pl-1.5 pr-2.5 transition hover:bg-ink-50"
@@ -188,7 +188,7 @@ export function Navbar() {
               )}
             </div>
           ) : (
-            <div className="hidden items-center gap-2 md:flex">
+            <div className="hidden items-center gap-2 lg:flex">
               <Link href="/login">
                 <Button variant="ghost" size="sm">
                   로그인
@@ -203,7 +203,7 @@ export function Navbar() {
           <ThemeToggle />
 
           <button
-            className="rounded-xl p-2 text-ink-600 transition hover:bg-ink-100 md:hidden"
+            className="rounded-xl p-2 text-ink-600 transition hover:bg-ink-100 lg:hidden"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="메뉴"
           >
@@ -217,7 +217,7 @@ export function Navbar() {
       </nav>
 
       {mobileOpen && (
-        <div className="animate-fade-in border-t border-ink-100 bg-white px-4 py-3 md:hidden">
+        <div className="animate-fade-in border-t border-ink-100 bg-white px-4 py-3 lg:hidden">
           <div className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => {
               const Icon = link.icon;
