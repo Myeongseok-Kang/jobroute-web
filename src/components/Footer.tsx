@@ -43,6 +43,12 @@ export function Footer() {
         <div className="mt-10 flex flex-col gap-3 border-t border-ink-100 pt-6 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between">
           <span>© 2026 JobRoute. 수익을 창출하지 않는 포트폴리오 프로젝트입니다.</span>
           <span className="flex gap-4">
+            <Link
+              href="/feedback"
+              className="font-semibold text-brand-600 hover:text-brand-700"
+            >
+              후기 이벤트
+            </Link>
             <Link href="/terms" className="hover:text-brand-600">
               이용약관
             </Link>

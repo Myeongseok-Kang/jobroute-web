@@ -86,6 +86,12 @@ const VALUE_STRIP = [
 export default function HomePage() {
   return (
     <div>
+      <Link
+        href="/feedback"
+        className="block bg-gradient-to-r from-brand-600 to-violet-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:opacity-95"
+      >
+        🎁 후기 남기고 네이버페이·싸이버거 받기 · 6/28~7/31 이벤트 진행 중 →
+      </Link>
       <section className="relative overflow-hidden bg-aurora">
         <div className="absolute inset-0 bg-grid opacity-60" />
         <div className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full bg-brand-400/20 blur-3xl animate-blob" />

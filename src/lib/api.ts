@@ -300,3 +300,18 @@ export const coverLetterApi = {
       body,
     }),
 };
+
+export interface Feedback {
+  id: string;
+  content: string;
+  phone?: string | null;
+  createdAt: string;
+  user?: { email: string | null; name: string | null };
+}
+
+export const feedbackApi = {
+  submit: (body: { content: string; phone?: string }) =>
+    apiFetch<Feedback>("/feedback", { method: "POST", body, auth: true }),
+  listMine: () => apiFetch<Feedback[]>("/feedback/me", { auth: true }),
+  listAdmin: () => apiFetch<Feedback[]>("/feedback/admin", { auth: true }),
+};
