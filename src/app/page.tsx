@@ -167,9 +167,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <p className="mt-4 text-center text-xs text-ink-400">
-              모든 기능 무료 · 구글/카카오 5초 가입
-            </p>
           </form>
         </div>
       </section>
