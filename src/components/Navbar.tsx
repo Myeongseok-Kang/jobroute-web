@@ -121,7 +121,7 @@ export function Navbar() {
             onClick={() =>
               window.dispatchEvent(new CustomEvent("jobroute:command"))
             }
-            className="hidden items-center gap-2 rounded-xl border border-ink-200/70 bg-white/60 px-2.5 py-1.5 text-xs font-medium text-ink-400 transition hover:border-ink-300 hover:text-ink-600 lg:flex"
+            className="hidden items-center gap-2 whitespace-nowrap rounded-xl border border-ink-200/70 bg-white/60 px-2.5 py-1.5 text-xs font-medium text-ink-400 transition hover:border-ink-300 hover:text-ink-600 xl:flex"
             aria-label="빠른 이동 검색"
           >
             <Search className="h-3.5 w-3.5" />
