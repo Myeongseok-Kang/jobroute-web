@@ -33,13 +33,38 @@ import { ResumeSelect } from "@/components/ResumeSelect";
 
 type TabKey = "draft" | "review";
 
-const SAMPLE_COVER_LETTER = `저는 사용자가 겪는 문제를 끝까지 파고들어 해결하는 백엔드 개발자입니다.
+const SAMPLE_COVER_LETTERS = [
+  {
+    label: "백엔드",
+    value: `저는 사용자가 겪는 문제를 끝까지 파고들어 해결하는 백엔드 개발자입니다.
 
 이전 프로젝트에서 결제 시스템의 응답 지연 문제를 맡았습니다. 원인을 추적해보니 매 요청마다 외부 API를 중복 호출하는 구조였고, Redis 캐시를 도입해 호출을 40% 줄이고 평균 응답속도를 1.2초에서 0.3초로 개선했습니다.
 
 또한 외부 API 장애가 전체 서비스로 번지는 것을 막기 위해 서킷 브레이커를 적용하고, 핵심 로직에 단위 테스트를 작성해 안정성을 보장했습니다.
 
-입사 후에는 단순히 기능을 구현하는 것을 넘어, 비용과 안정성까지 함께 고민하는 백엔드 엔지니어로 기여하고 싶습니다.`;
+입사 후에는 단순히 기능을 구현하는 것을 넘어, 비용과 안정성까지 함께 고민하는 백엔드 엔지니어로 기여하고 싶습니다.`,
+  },
+  {
+    label: "프론트엔드",
+    value: `사용자가 불편을 느끼는 0.1초를 줄이는 데 집중하는 프론트엔드 개발자입니다.
+
+대규모 목록 화면에서 스크롤이 끊기는 문제를 맡아, 가상 스크롤과 메모이제이션을 적용해 렌더링 비용을 크게 줄이고 부드러운 사용 경험을 만들었습니다. 또한 디자인 시스템을 컴포넌트화해 팀의 개발 속도를 높였습니다.
+
+접근성과 반응형에도 신경 써, 모바일과 데스크톱 모두에서 일관된 경험을 제공하는 것을 중요하게 생각합니다.
+
+입사 후에는 사용자 경험과 코드 품질을 함께 끌어올리는 프론트엔드 개발자로 성장하고 싶습니다.`,
+  },
+  {
+    label: "신입/비전공",
+    value: `비전공으로 시작했지만, 직접 서비스를 만들어 사용자에게 선보이며 개발의 매력에 빠진 신입 개발자입니다.
+
+부트캠프 수료 후 멈추지 않고 개인 프로젝트를 기획부터 배포까지 직접 진행했습니다. 그 과정에서 마주친 에러를 혼자 해결하며, 모르는 것을 끝까지 파고드는 끈기를 길렀습니다.
+
+새로운 기술을 빠르게 학습하고, 막히는 부분은 적극적으로 질문하며 함께 성장하는 동료가 되고 싶습니다.
+
+기회를 주신다면, 가장 빠르게 배우고 가장 열심히 기여하는 신입이 되겠습니다.`,
+  },
+];
 
 function CoverLetterInner() {
   const params = useSearchParams();
@@ -248,13 +273,23 @@ function CoverLetterInner() {
                   hint={`${content.length}자 · 10자 이상`}
                 />
               </div>
-              <button
-                type="button"
-                onClick={() => setContent(SAMPLE_COVER_LETTER)}
-                className="mt-2 text-xs font-semibold text-brand-600 transition hover:text-brand-700"
-              >
-                예시 자소서로 채우기
-              </button>
+              <div className="mt-2">
+                <p className="mb-1.5 text-xs font-semibold text-ink-500">
+                  예시 자소서로 채워보기
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {SAMPLE_COVER_LETTERS.map((s) => (
+                    <button
+                      key={s.label}
+                      type="button"
+                      onClick={() => setContent(s.value)}
+                      className="rounded-full border border-ink-200 bg-white px-3 py-1.5 text-xs font-medium text-ink-600 transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700 active:scale-95"
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <Button
                 fullWidth
                 size="lg"
