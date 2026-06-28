@@ -34,7 +34,7 @@ const NAV_LINKS: {
   { href: "/resume", label: "이력서", icon: FileText },
   { href: "/cover-letter", label: "자소서", icon: PenLine },
   { href: "/interview", label: "면접 질문", icon: MessageSquareText },
-  { href: "/feedback", label: "선물 이벤트", icon: Gift, highlight: true },
+  { href: "/feedback", label: "후기 이벤트", icon: Gift, highlight: true },
 ];
 
 export function Navbar() {
@@ -102,7 +102,7 @@ export function Navbar() {
                   className={cn(
                     "flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all",
                     link.highlight
-                      ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-btn hover:-translate-y-0.5 hover:shadow-lift"
+                      ? "bg-gradient-to-r from-brand-500 to-violet-600 text-white shadow-btn hover:-translate-y-0.5 hover:shadow-lift"
                       : active
                         ? "bg-gradient-to-b from-brand-50 to-brand-100 text-brand-700 shadow-sm ring-1 ring-inset ring-brand-100"
                         : "text-ink-600 hover:bg-ink-50 hover:text-ink-900"
@@ -228,7 +228,7 @@ export function Navbar() {
                   className={cn(
                     "flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold",
                     link.highlight
-                      ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-btn"
+                      ? "bg-gradient-to-r from-brand-500 to-violet-600 text-white shadow-btn"
                       : isActive(link.href)
                         ? "bg-brand-50 text-brand-700"
                         : "text-ink-600"
