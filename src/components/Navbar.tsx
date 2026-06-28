@@ -15,6 +15,7 @@ import {
   X,
   ChevronDown,
   Search,
+  Gift,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Logo } from "./Logo";
@@ -28,6 +29,7 @@ const NAV_LINKS = [
   { href: "/resume", label: "이력서", icon: FileText },
   { href: "/cover-letter", label: "자소서", icon: PenLine },
   { href: "/interview", label: "면접 질문", icon: MessageSquareText },
+  { href: "/feedback", label: "이벤트", icon: Gift },
 ];
 
 export function Navbar() {
