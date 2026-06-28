@@ -99,13 +99,16 @@ export default function FeedbackPage() {
             추첨을 통해 선물을 드려요.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
-            <span className="rounded-xl bg-white/15 px-3 py-2 text-sm font-bold backdrop-blur">
-              🎟️ 네이버페이 상품권 1만원 · 3명
+            <span className="rounded-xl bg-[#03C75A] px-3 py-2 text-sm font-bold text-white shadow-sm">
+              네이버페이 상품권 1만원 · 3명
             </span>
-            <span className="rounded-xl bg-white/15 px-3 py-2 text-sm font-bold backdrop-blur">
+            <span className="rounded-xl bg-amber-400 px-3 py-2 text-sm font-bold text-ink-900 shadow-sm">
               🍔 싸이버거 기프티콘 · 5명
             </span>
           </div>
+          <p className="mt-3 text-xs text-brand-100">
+            경품 수령을 위해 후기 작성 시 전화번호를 남겨주세요.
+          </p>
         </div>
       </div>
 
@@ -151,12 +154,12 @@ export default function FeedbackPage() {
                 hint={`${content.trim().length}자 · 5자 이상`}
               />
               <Input
-                label="전화번호 (선택)"
+                label="전화번호 (경품 받으려면 필수)"
                 placeholder="010-0000-0000"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 icon={<Phone className="h-4 w-4" />}
-                hint="경품 지급 안내 용도로만 사용하며, 본인과 운영자만 볼 수 있어요."
+                hint="후기만 남기셔도 되지만, 추첨 경품을 받으려면 전화번호가 필요해요. 본인과 운영자만 볼 수 있어요."
               />
               <Button
                 onClick={submit}
