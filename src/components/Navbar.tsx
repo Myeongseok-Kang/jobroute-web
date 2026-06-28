@@ -23,13 +23,18 @@ import { Button } from "./ui/Button";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn, getInitial } from "@/lib/utils";
 
-const NAV_LINKS = [
+const NAV_LINKS: {
+  href: string;
+  label: string;
+  icon: typeof Briefcase;
+  highlight?: boolean;
+}[] = [
   { href: "/jobs", label: "공고 탐색", icon: Briefcase },
   { href: "/matching", label: "AI 매칭", icon: Sparkles },
   { href: "/resume", label: "이력서", icon: FileText },
   { href: "/cover-letter", label: "자소서", icon: PenLine },
   { href: "/interview", label: "면접 질문", icon: MessageSquareText },
-  { href: "/feedback", label: "이벤트", icon: Gift },
+  { href: "/feedback", label: "선물 이벤트", icon: Gift, highlight: true },
 ];
 
 export function Navbar() {
@@ -96,9 +101,11 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     "flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all",
-                    active
-                      ? "bg-gradient-to-b from-brand-50 to-brand-100 text-brand-700 shadow-sm ring-1 ring-inset ring-brand-100"
-                      : "text-ink-600 hover:bg-ink-50 hover:text-ink-900"
+                    link.highlight
+                      ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-btn hover:-translate-y-0.5 hover:shadow-lift"
+                      : active
+                        ? "bg-gradient-to-b from-brand-50 to-brand-100 text-brand-700 shadow-sm ring-1 ring-inset ring-brand-100"
+                        : "text-ink-600 hover:bg-ink-50 hover:text-ink-900"
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -220,9 +227,11 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     "flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold",
-                    isActive(link.href)
-                      ? "bg-brand-50 text-brand-700"
-                      : "text-ink-600"
+                    link.highlight
+                      ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-btn"
+                      : isActive(link.href)
+                        ? "bg-brand-50 text-brand-700"
+                        : "text-ink-600"
                   )}
                 >
                   <Icon className="h-4 w-4" />
