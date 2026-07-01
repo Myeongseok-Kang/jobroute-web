@@ -62,12 +62,16 @@ const TEXT_EXAMPLES = [
   },
 ];
 
+// 미선택(placeholder, value="")과 "전체" 선택을 구분하기 위한 센티넬
+const ALL = "all";
+
 const REGION_OPTIONS = [
-  { value: "", label: "전체 지역" },
+  { value: "", label: "선택" },
+  { value: ALL, label: "전체 지역" },
   ...REGIONS.map((r) => ({ value: r, label: r })),
 ];
 
-function parseCareer(career: string): number | undefined {
+function parseCareer(career?: string): number | undefined {
   if (!career) return undefined;
   if (/신입|무관/.test(career)) return 0;
   const m = career.match(/(\d+)/);
@@ -127,6 +131,15 @@ export default function MatchingPage() {
   };
 
   const runMatch = async () => {
+    if (!region || !career || !employmentType) {
+      toast.error("희망 지역, 경력, 고용형태를 모두 선택해주세요");
+      return;
+    }
+    // "전체" 선택은 필터를 걸지 않음(undefined)
+    const regionVal = region === ALL ? undefined : region;
+    const careerVal = career === ALL ? undefined : career;
+    const empVal = employmentType === ALL ? undefined : employmentType;
+
     setLoading(true);
     setResult(null);
     try {
@@ -139,9 +152,9 @@ export default function MatchingPage() {
         }
         res = await matchingApi.byText({
           text: text.trim(),
-          userCareer: parseCareer(career),
-          employmentType: employmentType || undefined,
-          region: region || undefined,
+          userCareer: parseCareer(careerVal),
+          employmentType: empVal,
+          region: regionVal,
           limit: 20,
         });
       } else if (tab === "conditions") {
@@ -153,9 +166,9 @@ export default function MatchingPage() {
         res = await matchingApi.byConditions({
           jobCategory: jobCategory || undefined,
           skills: skills.length ? skills : undefined,
-          career: career || undefined,
-          employmentType: employmentType || undefined,
-          region: region || undefined,
+          career: careerVal,
+          employmentType: empVal,
+          region: regionVal,
           limit: 20,
         });
       } else {
@@ -165,9 +178,9 @@ export default function MatchingPage() {
           return;
         }
         res = await matchingApi.byResume(selectedResume, {
-          userCareer: parseCareer(career),
-          employmentType: employmentType || undefined,
-          region: region || undefined,
+          userCareer: parseCareer(careerVal),
+          employmentType: empVal,
+          region: regionVal,
           limit: 20,
         });
       }
@@ -441,10 +454,6 @@ export default function MatchingPage() {
 
           {/* Region + submit */}
           <div className="mt-6 border-t border-ink-100 pt-5">
-            <div className="mb-2.5 flex flex-wrap items-center gap-1.5 text-xs font-semibold text-brand-600">
-              <Sparkles className="h-3.5 w-3.5" />
-              선택하면 매칭이 더 정확해져요
-            </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
               <div className="grid flex-1 gap-3 sm:grid-cols-3">
               <Select
@@ -458,7 +467,8 @@ export default function MatchingPage() {
                 value={career}
                 onChange={(e) => setCareer(e.target.value)}
                 options={[
-                  { value: "", label: "전체" },
+                  { value: "", label: "선택" },
+                  { value: ALL, label: "전체" },
                   ...CAREER_OPTIONS.map((c) => ({ value: c, label: c })),
                 ]}
               />
@@ -467,7 +477,8 @@ export default function MatchingPage() {
                 value={employmentType}
                 onChange={(e) => setEmploymentType(e.target.value)}
                 options={[
-                  { value: "", label: "전체" },
+                  { value: "", label: "선택" },
+                  { value: ALL, label: "전체" },
                   ...EMPLOYMENT_OPTIONS.map((c) => ({ value: c, label: c })),
                 ]}
               />
