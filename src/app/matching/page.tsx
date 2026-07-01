@@ -87,6 +87,7 @@ export default function MatchingPage() {
   const [result, setResult] = useState<MatchResult | null>(null);
 
   const [region, setRegion] = useState("");
+  const [triedSubmit, setTriedSubmit] = useState(false);
 
   const [text, setText] = useState("");
 
@@ -132,9 +133,11 @@ export default function MatchingPage() {
 
   const runMatch = async () => {
     if (!region || !career || !employmentType) {
-      toast.error("희망 지역, 경력, 고용형태를 모두 선택해주세요");
+      setTriedSubmit(true);
+      toast.error("희망 지역, 경력, 고용형태를 선택해주세요");
       return;
     }
+    setTriedSubmit(false);
     // "전체" 선택은 필터를 걸지 않음(undefined)
     const regionVal = region === ALL ? undefined : region;
     const careerVal = career === ALL ? undefined : career;
@@ -461,6 +464,7 @@ export default function MatchingPage() {
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
                 options={REGION_OPTIONS}
+                error={triedSubmit && !region ? "선택해주세요" : undefined}
               />
               <Select
                 label="경력"
@@ -471,6 +475,7 @@ export default function MatchingPage() {
                   { value: ALL, label: "전체" },
                   ...CAREER_OPTIONS.map((c) => ({ value: c, label: c })),
                 ]}
+                error={triedSubmit && !career ? "선택해주세요" : undefined}
               />
               <Select
                 label="고용형태"
@@ -481,6 +486,7 @@ export default function MatchingPage() {
                   { value: ALL, label: "전체" },
                   ...EMPLOYMENT_OPTIONS.map((c) => ({ value: c, label: c })),
                 ]}
+                error={triedSubmit && !employmentType ? "선택해주세요" : undefined}
               />
             </div>
             <Button
