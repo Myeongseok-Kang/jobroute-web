@@ -17,7 +17,7 @@ import Link from "next/link";
 import type { MatchCandidate } from "@/lib/types";
 import { ScoreRing, ScoreBar } from "./ScoreRing";
 import { Reveal } from "./Reveal";
-import { cn, sourceMeta } from "@/lib/utils";
+import { cn, sourceMeta, scoreColor } from "@/lib/utils";
 
 const EMP_LABELS: Record<string, string> = {
   fulltime: "정규직",
@@ -201,7 +201,34 @@ export function RecommendedCard({
   );
 }
 
-/** Compact candidate row — no reason, with score breakdown. */
+/** One inline score metric — label, tiny bar, value. */
+function MiniScore({
+  label,
+  score,
+  max = 1,
+}: {
+  label: string;
+  score: number;
+  max?: number;
+}) {
+  const ratio = max === 1 ? score : score / max;
+  const pct = Math.max(0, Math.min(100, Math.round(ratio * 100)));
+  const color = scoreColor(ratio);
+  return (
+    <span className="inline-flex items-center gap-1 text-ink-400">
+      <span className="font-medium">{label}</span>
+      <span className="h-1 w-7 overflow-hidden rounded-full bg-ink-100">
+        <span
+          className={cn("block h-full rounded-full", color.bg)}
+          style={{ width: `${pct}%` }}
+        />
+      </span>
+      <span className={cn("font-bold tabular-nums", color.text)}>{pct}</span>
+    </span>
+  );
+}
+
+/** Compact candidate row — no reason, with inline score strip. */
 export function CandidateRow({
   candidate,
   rank,
@@ -209,77 +236,60 @@ export function CandidateRow({
   candidate: MatchCandidate;
   rank: number;
 }) {
-  const [open, setOpen] = useState(true);
   const src = sourceMeta(candidate.source);
   const career = careerLabel(candidate.careerMin);
   const emp = empLabel(candidate.employmentType);
 
   return (
-    <div className="ring-grad overflow-hidden rounded-xl border border-ink-200/70 bg-white shadow-soft transition-all hover:border-transparent hover:shadow-card">
-      <a
-        href={candidate.sourceUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group flex items-center gap-4 px-4 py-3.5"
-      >
-        <span className="w-5 shrink-0 text-center text-sm font-bold text-ink-300">
-          {rank}
-        </span>
-        <ScoreRing score={candidate.score} size={42} stroke={4} />
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-bold text-ink-900 transition group-hover:text-brand-700">
-            {candidate.title}
-          </p>
-          <p className="mt-0.5 flex items-center gap-1.5 truncate text-xs text-ink-500">
-            <Building2 className="h-3 w-3" />
-            {candidate.company}
-            {candidate.region && <span>· {candidate.region}</span>}
-          </p>
+    <a
+      href={candidate.sourceUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group ring-grad flex items-center gap-4 rounded-xl border border-ink-200/70 bg-white px-4 py-3 shadow-soft transition-all hover:-translate-y-0.5 hover:border-transparent hover:shadow-card"
+    >
+      <span className="w-5 shrink-0 text-center text-sm font-bold text-ink-300">
+        {rank}
+      </span>
+      <ScoreRing score={candidate.score} size={42} stroke={4} />
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-bold text-ink-900 transition group-hover:text-brand-700">
+          {candidate.title}
+        </p>
+        <p className="mt-0.5 flex items-center gap-1.5 truncate text-xs text-ink-500">
+          <Building2 className="h-3 w-3" />
+          {candidate.company}
+          {candidate.region && <span>· {candidate.region}</span>}
+        </p>
+        {/* inline score strip */}
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
+          <MiniScore label="임베딩" score={candidate.embedScore} />
+          <MiniScore label="키워드" score={candidate.trgmScore} />
+          <MiniScore label="경력" score={candidate.careerScore} max={0.1} />
+          <MiniScore label="고용" score={candidate.empScore} max={0.1} />
         </div>
-        <div className="hidden shrink-0 items-center gap-1.5 sm:flex">
-          <span
-            className={cn(
-              "rounded-md border px-1.5 py-0.5 text-[11px] font-bold",
-              src.color
-            )}
-          >
-            {src.label}
-          </span>
-          {career && (
-            <span className="rounded-md bg-ink-100 px-1.5 py-0.5 text-[11px] font-semibold text-ink-500">
-              {career}
-            </span>
+      </div>
+      <div className="hidden shrink-0 items-center gap-1.5 self-start sm:flex">
+        <span
+          className={cn(
+            "rounded-md border px-1.5 py-0.5 text-[11px] font-bold",
+            src.color
           )}
-          {emp && (
-            <span className="rounded-md bg-ink-100 px-1.5 py-0.5 text-[11px] font-semibold text-ink-500">
-              {emp}
-            </span>
-          )}
-        </div>
-        <ExternalLink className="h-4 w-4 shrink-0 text-ink-300 transition group-hover:text-brand-500" />
-      </a>
-
-      {/* Score breakdown (collapsible, open by default) */}
-      <div className="px-4 pb-3">
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="flex w-full items-center justify-between rounded-lg px-1 py-1 text-xs font-semibold text-ink-500 transition hover:text-ink-700"
         >
-          점수 상세 보기
-          <ChevronDown
-            className={cn("h-4 w-4 transition-transform", open && "rotate-180")}
-          />
-        </button>
-        {open && (
-          <div className="mt-2 grid grid-cols-2 gap-x-5 gap-y-3 rounded-xl bg-ink-50 p-4 animate-fade-in-fast sm:grid-cols-4">
-            <ScoreBar label="임베딩 유사도" score={candidate.embedScore} />
-            <ScoreBar label="키워드(trgm)" score={candidate.trgmScore} />
-            <ScoreBar label="경력 가중치" score={candidate.careerScore} max={0.1} />
-            <ScoreBar label="고용형태" score={candidate.empScore} max={0.1} />
-          </div>
+          {src.label}
+        </span>
+        {career && (
+          <span className="rounded-md bg-ink-100 px-1.5 py-0.5 text-[11px] font-semibold text-ink-500">
+            {career}
+          </span>
+        )}
+        {emp && (
+          <span className="rounded-md bg-ink-100 px-1.5 py-0.5 text-[11px] font-semibold text-ink-500">
+            {emp}
+          </span>
         )}
       </div>
-    </div>
+      <ExternalLink className="h-4 w-4 shrink-0 self-start text-ink-300 transition group-hover:text-brand-500" />
+    </a>
   );
 }
 
