@@ -287,8 +287,13 @@ export const coverLetterApi = {
       body,
     }),
 
-  draft: (jobId: string, resumeId?: string) =>
+  draft: (jobId: string) =>
     apiFetch<CoverLetterDraft>(`/cover-letter/draft/${jobId}`, {
+      method: "POST",
+    }),
+
+  draftPersonalized: (jobId: string, resumeId?: string) =>
+    apiFetch<CoverLetterDraft>(`/cover-letter/draft/${jobId}/personalized`, {
       method: "POST",
       body: { resumeId },
       auth: true,

@@ -12,10 +12,12 @@ export function ResumeSelect({
   value,
   onChange,
   loginRedirect = "/login",
+  optional = false,
 }: {
   value: string;
   onChange: (id: string) => void;
   loginRedirect?: string;
+  optional?: boolean;
 }) {
   const { isAuthed } = useAuth();
   const [resumes, setResumes] = useState<Resume[] | null>(null);
@@ -46,7 +48,9 @@ export function ResumeSelect({
           >
             로그인
           </Link>{" "}
-          후 내 이력서로 이용할 수 있어요.
+          {optional
+            ? "하면 내 이력서를 반영해 더 정확하게 만들 수 있어요. (선택)"
+            : "후 내 이력서로 이용할 수 있어요."}
         </span>
       </div>
     );
@@ -63,7 +67,11 @@ export function ResumeSelect({
           <AlertCircle className="h-3.5 w-3.5" />
           저장된 이력서가 없어요
         </p>
-        <p className="mt-1">이력서가 있어야 이용할 수 있어요.</p>
+        <p className="mt-1">
+          {optional
+            ? "이력서를 추가하면 내 경험을 반영해 더 정확해져요. (선택)"
+            : "이력서가 있어야 이용할 수 있어요."}
+        </p>
         <Link
           href="/resume"
           className="mt-2 inline-block font-semibold text-brand-600 underline"

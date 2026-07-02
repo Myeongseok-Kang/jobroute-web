@@ -78,6 +78,7 @@ function CoverLetterInner() {
   const [draftLoading, setDraftLoading] = useState(false);
   const [draft, setDraft] = useState<CoverLetterDraft | null>(null);
   const [draftError, setDraftError] = useState<string | null>(null);
+  const [draftGeneric, setDraftGeneric] = useState(false);
 
   const [content, setContent] = useState("");
   const [reviewLoading, setReviewLoading] = useState(false);
@@ -98,26 +99,26 @@ function CoverLetterInner() {
       toast.error("자소서를 작성할 공고를 선택해주세요");
       return;
     }
-    if (!isAuthed) {
-      toast.info("자소서 초안 생성은 로그인 후 이용할 수 있어요");
-      return;
-    }
-    if (!resumeId) {
-      toast.error("초안 생성에 사용할 이력서를 선택해주세요");
-      return;
-    }
+    const personalized = isAuthed && !!resumeId;
     setDraftLoading(true);
     setDraft(null);
     setDraftError(null);
+    setDraftGeneric(!personalized);
     try {
-      const res = await coverLetterApi.draft(job.id, resumeId);
+      const res = personalized
+        ? await coverLetterApi.draftPersonalized(job.id, resumeId)
+        : await coverLetterApi.draft(job.id);
       if (res.error) {
         setDraftError(res.error);
         toast.error(res.error);
         return;
       }
       setDraft(res);
-      toast.success("자소서 초안을 생성했어요");
+      toast.success(
+        personalized
+          ? "이력서를 반영한 자소서 초안을 생성했어요"
+          : "자소서 초안을 생성했어요"
+      );
     } catch (err) {
       const msg =
         err instanceof ApiError ? err.message : "초안 생성에 실패했어요";
@@ -177,7 +178,7 @@ function CoverLetterInner() {
                 공고 선택
               </h3>
               <p className="mt-1 text-xs text-ink-500">
-                선택한 공고와 이력서를 바탕으로 초안을 만들어요. 이력서가 필요해요.
+                공고만 선택하면 로그인·이력서 없이도 초안을 만들어요. 이력서를 넣으면 내 경험을 반영해 더 정확해져요.
               </p>
               <div className="mt-4">
                 <JobPicker selected={job} onSelect={setJob} />
@@ -187,6 +188,7 @@ function CoverLetterInner() {
                   value={resumeId}
                   onChange={setResumeId}
                   loginRedirect="/cover-letter"
+                  optional
                 />
               </div>
               <Button
@@ -195,7 +197,7 @@ function CoverLetterInner() {
                 className="mt-4"
                 onClick={generateDraft}
                 loading={draftLoading}
-                disabled={!job || !resumeId}
+                disabled={!job}
               >
                 <Wand2 className="h-5 w-5" />
                 자소서 초안 생성
@@ -215,6 +217,18 @@ function CoverLetterInner() {
               />
             ) : draft ? (
               <div className="animate-fade-in space-y-4">
+                {draftGeneric && (
+                  <div className="flex items-start gap-2.5 rounded-xl border border-brand-100 bg-brand-50/60 px-4 py-3 text-sm text-ink-700">
+                    <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-brand-500" />
+                    <p>
+                      이력서 없이 공고만으로 만든 초안이에요.{" "}
+                      <span className="font-semibold text-brand-700">
+                        [대괄호]
+                      </span>{" "}
+                      부분에 본인의 실제 경험(프로젝트, 사용 기술, 수치 성과 등)을 채워 넣으면 완성돼요. 로그인 후 이력서를 넣으면 이 부분까지 자동으로 반영해드려요.
+                    </p>
+                  </div>
+                )}
                 <DraftSection
                   title="지원동기"
                   text={draft.draft.지원동기}
@@ -431,8 +445,7 @@ function DraftPlaceholder() {
         자소서 초안이 여기에 표시돼요
       </h3>
       <p className="mt-1.5 max-w-sm text-sm text-ink-500">
-        왼쪽에서 공고를 선택하고 초안 생성을 눌러보세요. 지원동기·직무역량·입사 후
-        포부 세 항목으로 작성해드려요.
+        왼쪽에서 공고를 선택하고 초안 생성을 눌러보세요. 로그인·이력서 없이도 지원동기·직무역량·입사 후 포부 세 항목으로 작성해드려요.
       </p>
     </div>
   );
